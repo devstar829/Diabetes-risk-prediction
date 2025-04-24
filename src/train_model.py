@@ -5,6 +5,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import classification_report, accuracy_score
 import joblib
 import os
+import matplotlib.pyplot as plt
 
 # 1. data load
 df = pd.read_csv('./data/diabetes.csv')
@@ -13,9 +14,14 @@ df = pd.read_csv('./data/diabetes.csv')
 X = df.drop("Outcome", axis=1)
 y = df["Outcome"]
 
+print(X)
+
+
 # 3. standardization
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
+
+print(X_scaled)
 
 # 4. train-test split
 X_train, X_test, y_train, y_test = train_test_split(
@@ -35,5 +41,11 @@ print("\nClassification Report:\n", classification_report(y_test, y_pred))
 os.makedirs("./src/model", exist_ok=True)
 joblib.dump(model, "./src/model/rf_model.pkl")
 joblib.dump(scaler, "./src/model/scaler.pkl")
+
+df["Outcome"].value_counts().plot(kind="bar", color=["skyblue", "salmon"])
+plt.title("Diabetes Outcome Distribution")
+plt.xlabel("Outcome")
+plt.ylabel("Count")
+plt.savefig("static/chart.png")
 
 print("✅ saved successfully!")
