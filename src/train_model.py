@@ -37,7 +37,7 @@ y_pred = model.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
-# 7. save model
+# 7. save
 os.makedirs("./src/model", exist_ok=True)
 joblib.dump(model, "./src/model/rf_model.pkl")
 joblib.dump(scaler, "./src/model/scaler.pkl")
